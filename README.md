@@ -34,7 +34,7 @@ Choose `kotlin` or `java`.
 For the Kotlin version: `git checkout main`
 
 For the Java version: `git checkout java/main` and switch to
-the [Java README.md](https://github.com/nkrijnen/workshop-devoxx-2022/tree/java/main#validate-your-setup)
+the [Java README.md](https://github.com/nkrijnen/workshop-ddd-nl-2022-11/tree/java/main#validate-your-setup)
 
 ### Validate your setup
 
