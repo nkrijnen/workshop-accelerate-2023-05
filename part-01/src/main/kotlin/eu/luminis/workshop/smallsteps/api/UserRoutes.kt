@@ -1,5 +1,6 @@
 package eu.luminis.workshop.smallsteps.api
 
+import eu.luminis.workshop.smallsteps.logic.NewUserCommand
 import eu.luminis.workshop.smallsteps.logic.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,7 +14,7 @@ fun Route.userRoutes(userService: UserService) {
     route("/user") {
         post {
             val request = call.receive<NewUserRequest>()
-            userService.registerNewUser(request)
+            userService.registerNewUser(request.toCommand())
             call.respondText("User registered correctly", status = HttpStatusCode.Created)
         }
     }
@@ -23,4 +24,6 @@ fun Route.userRoutes(userService: UserService) {
 data class NewUserRequest(
     val email: String,
     val password: String,
-)
+) {
+    fun toCommand() = NewUserCommand(email, password)
+}
