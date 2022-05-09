@@ -1,3 +1,3 @@
 rootProject.name = "workshop-small-steps"
 
-include("part-01")
+include("part-02")

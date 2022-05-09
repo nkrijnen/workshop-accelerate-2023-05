@@ -4,7 +4,7 @@ During the workshop, this repo will be updated with code that you will be workin
 
 ## Assignments
 
-Go to [part-01/README.md](part-01/README.md) for the first exercises.
+Go to [part-02/README.md](part-02/README.md) for the first exercises.
 
 ## Workshop preparation
 
@@ -48,11 +48,9 @@ the code. At this point, you may run into some of the issues mentioned below.
 Once the gradle build is complete, let's make sure you can run the tests.
 
 Run all the tests. Press `Ctrl + Alt + R` (Mac) or `Alt + Shift + F10` (Win),
-then select `Tests in 'part-01'` and press enter.
+then select `Tests in 'part-02'` and press enter.
 
-If all is well, the test should fail with `expected: <Hello kotlin> but was: <Hello world>`
-
-Now open `Hello.kt` and fix the code. Run the tests again to make sure they pass.
+If all is well, the test should run and all should pass.
 
 ### Common issues
 
