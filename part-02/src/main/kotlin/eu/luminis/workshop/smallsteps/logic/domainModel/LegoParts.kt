@@ -18,19 +18,8 @@ class LegoParts(private val partCounts: Map<String, Int> = mapOf()) {
 
     fun toListOfPartCounts() = partCounts.toList()
 
-    // Temporary method to ease codebase migration from Map<String, Int>
-    // TODO delete when all code is migrated to LegoParts
-    fun toPartCounts() = partCounts
-
     override fun equals(other: Any?) = partCounts == (other as? LegoParts)?.partCounts
 
     override fun hashCode() = partCounts.hashCode()
 
 }
-
-// Temporary method to ease codebase migration from Map<String, Int>
-// TODO delete when all code is migrated to LegoParts
-fun Map<String, Int>.toLegoParts() = LegoParts(this)
-
-@Deprecated("Delete when all code is migrated to LegoParts", ReplaceWith("nothing"))
-fun LegoParts.toLegoParts() = this

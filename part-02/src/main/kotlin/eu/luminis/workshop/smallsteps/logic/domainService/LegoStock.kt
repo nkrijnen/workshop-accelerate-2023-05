@@ -1,7 +1,6 @@
 package eu.luminis.workshop.smallsteps.logic.domainService
 
 import eu.luminis.workshop.smallsteps.logic.domainModel.LegoParts
-import eu.luminis.workshop.smallsteps.logic.domainModel.toLegoParts
 import eu.luminis.workshop.smallsteps.logic.domainModel.valueObjects.LegoBuilderId
 import eu.luminis.workshop.smallsteps.logic.domainModel.valueObjects.LegoSetNumber
 import eu.luminis.workshop.smallsteps.logic.domainService.auth.AuthProvider
@@ -64,15 +63,15 @@ data class LegoStock(
     }
 
     private fun LegoBox.requireValidMissingLegoParts() {
-        require(missingParts.toLegoParts().isNotEmpty()) { "No missing parts specified" }
-        require(missingParts.toLegoParts().hasNoneWithCountZero()) { "You must specify how many parts are missing" }
+        require(missingParts.isNotEmpty()) { "No missing parts specified" }
+        require(missingParts.hasNoneWithCountZero()) { "You must specify how many parts are missing" }
 
         val expectedParts = legoPartCatalog.allPartsForLegoSet(legoSet)
             ?: throw IllegalStateException("Unable to determine parts for lego set $legoSet")
-        require(missingParts.toLegoParts().partsPresentIn(LegoParts(expectedParts))) {
+        require(missingParts.partsPresentIn(LegoParts(expectedParts))) {
             "Some parts reported missing don't belong to lego set $legoSet"
         }
-        require(missingParts.toLegoParts().hasNoMoreThan(LegoParts(expectedParts))) {
+        require(missingParts.hasNoMoreThan(LegoParts(expectedParts))) {
             "Too many parts reported missing, the original lego set $legoSet did not contain that many of this part"
         }
     }
