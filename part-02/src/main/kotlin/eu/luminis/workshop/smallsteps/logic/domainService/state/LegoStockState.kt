@@ -16,27 +16,15 @@ data class LegoBox(
     val legoSet: LegoSetNumber,
     val boxNumber: Int,
     val missingParts: LegoParts,
-) {
-    constructor(
-        legoSet: LegoSetNumber,
-        boxNumber: Int,
-        missingParts: Map<String, Int>,
-    ) : this(
-        legoSet,
-        boxNumber,
-        LegoParts(missingParts)
-    )
-}
+)
 
 data class IncompleteReturn(
     val legoSet: LegoSetNumber,
     val missingParts: LegoParts,
-) {
-    constructor(
-        legoSet: LegoSetNumber,
-        missingParts: Map<String, Int>,
-    ) : this(
-        legoSet,
-        LegoParts(missingParts)
-    )
-}
+)
+
+fun LegoBox(legoSet: LegoSetNumber, boxNumber: Int, missingParts: Map<String, Int>) =
+    LegoBox(legoSet, boxNumber, LegoParts(missingParts))
+
+fun IncompleteReturn(legoSet: LegoSetNumber, missingParts: Map<String, Int>) =
+    IncompleteReturn(legoSet, LegoParts(missingParts))
