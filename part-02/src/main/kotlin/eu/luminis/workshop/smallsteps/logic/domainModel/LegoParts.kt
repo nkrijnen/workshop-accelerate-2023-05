@@ -31,4 +31,6 @@ class LegoParts(private val partCounts: Map<String, Int> = mapOf()) {
 // Temporary method to ease codebase migration from Map<String, Int>
 // TODO delete when all code is migrated to LegoParts
 fun Map<String, Int>.toLegoParts() = LegoParts(this)
+
+@Deprecated("Delete when all code is migrated to LegoParts", ReplaceWith("nothing"))
 fun LegoParts.toLegoParts() = this
