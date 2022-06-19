@@ -4,8 +4,8 @@ import eu.luminis.workshop.smallsteps.api.helper.TestLegoStockRepository
 import eu.luminis.workshop.smallsteps.api.helper.setupLegoTestApp
 import eu.luminis.workshop.smallsteps.logic.domainModel.valueObjects.LegoSetNumber
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.TestUsers
-import eu.luminis.workshop.smallsteps.logic.domainService.state.IncompleteReturn
-import eu.luminis.workshop.smallsteps.logic.domainService.state.LegoBox
+import eu.luminis.workshop.smallsteps.logic.domainService.state.buildIncompleteReturn
+import eu.luminis.workshop.smallsteps.logic.domainService.state.buildLegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -25,10 +25,10 @@ internal class LegoStockReportRoutesTest {
         val stockRepository = TestLegoStockRepository(
             StockState(
                 incompleteStock = listOf(
-                    LegoBox(millenniumFalcon, 42, mapOf("3022" to 7, "20105" to 1)),
-                    LegoBox(millenniumFalcon, 37, mapOf("3022" to 3, "60581" to 1)),
-                    LegoBox(atAt, 5, mapOf("3022" to 2, "18674" to 1)),
-                    LegoBox(r2d2, 8, mapOf("3666" to 2, "64799" to 1)),
+                    buildLegoBox(millenniumFalcon, 42, mapOf("3022" to 7, "20105" to 1)),
+                    buildLegoBox(millenniumFalcon, 37, mapOf("3022" to 3, "60581" to 1)),
+                    buildLegoBox(atAt, 5, mapOf("3022" to 2, "18674" to 1)),
+                    buildLegoBox(r2d2, 8, mapOf("3666" to 2, "64799" to 1)),
                 )
             )
         )
@@ -62,10 +62,10 @@ internal class LegoStockReportRoutesTest {
         val stockRepository = TestLegoStockRepository(
             StockState(
                 incompleteReturnHistory = listOf(
-                    IncompleteReturn(millenniumFalcon, mapOf("3022" to 5, "20105" to 1)),
-                    IncompleteReturn(millenniumFalcon, mapOf("3022" to 3, "60581" to 1)),
-                    IncompleteReturn(atAt, mapOf("3022" to 2, "18674" to 1)),
-                    IncompleteReturn(r2d2, mapOf("3666" to 2, "64799" to 1)),
+                    buildIncompleteReturn(millenniumFalcon, mapOf("3022" to 5, "20105" to 1)),
+                    buildIncompleteReturn(millenniumFalcon, mapOf("3022" to 3, "60581" to 1)),
+                    buildIncompleteReturn(atAt, mapOf("3022" to 2, "18674" to 1)),
+                    buildIncompleteReturn(r2d2, mapOf("3666" to 2, "64799" to 1)),
                 )
             )
         )

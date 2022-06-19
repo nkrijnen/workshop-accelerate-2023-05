@@ -3,8 +3,8 @@ package eu.luminis.workshop.smallsteps.logic.domainService
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper.millenniumFalcon
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.TestUsers
-import eu.luminis.workshop.smallsteps.logic.domainService.state.IncompleteReturn
-import eu.luminis.workshop.smallsteps.logic.domainService.state.LegoBox
+import eu.luminis.workshop.smallsteps.logic.domainService.state.buildIncompleteReturn
+import eu.luminis.workshop.smallsteps.logic.domainService.state.buildLegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -47,12 +47,12 @@ internal class `LegoStock - ReturningInCompleteTest` {
         )
 
         // when
-        val newState = handler.returningInComplete(LegoBox(millenniumFalcon, 42, missingPartsForMilleniumFalcon))
+        val newState = handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, missingPartsForMilleniumFalcon))
 
         // then
-        assertEquals(listOf(LegoBox(millenniumFalcon, 42, missingPartsForMilleniumFalcon)), newState.incompleteStock)
+        assertEquals(listOf(buildLegoBox(millenniumFalcon, 42, missingPartsForMilleniumFalcon)), newState.incompleteStock)
         assertEquals(
-            listOf(IncompleteReturn(millenniumFalcon, missingPartsForMilleniumFalcon)),
+            listOf(buildIncompleteReturn(millenniumFalcon, missingPartsForMilleniumFalcon)),
             newState.incompleteReturnHistory
         )
         assertEquals(initialState.atBuilder, newState.atBuilder)
@@ -76,7 +76,7 @@ internal class `LegoStock - ReturningInCompleteTest` {
         // then
         assertFailsWith<IllegalArgumentException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, emptyMap()))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, emptyMap()))
         }
     }
 
@@ -96,14 +96,14 @@ internal class `LegoStock - ReturningInCompleteTest` {
         // then
         assertFailsWith<IllegalArgumentException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, nonMilleniumFalconParts))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, nonMilleniumFalconParts))
         }
 
         // and
         assertFailsWith<IllegalArgumentException> {
             // when
             handler.returningInComplete(
-                LegoBox(
+                buildLegoBox(
                     millenniumFalcon,
                     42,
                     nonMilleniumFalconParts + nonMilleniumFalconParts
@@ -128,13 +128,13 @@ internal class `LegoStock - ReturningInCompleteTest` {
         // then
         assertFailsWith<IllegalArgumentException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, mapOf("20105" to 5))) // only 1 part of set
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, mapOf("20105" to 5))) // only 1 part of set
         }
 
         // and
         assertFailsWith<IllegalArgumentException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, mapOf("20105" to 0)))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, mapOf("20105" to 0)))
         }
     }
 

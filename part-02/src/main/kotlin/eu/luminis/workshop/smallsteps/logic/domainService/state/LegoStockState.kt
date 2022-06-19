@@ -23,8 +23,8 @@ data class IncompleteReturn(
     val missingParts: LegoParts,
 )
 
-fun LegoBox(legoSet: LegoSetNumber, boxNumber: Int, missingParts: Map<String, Int>) =
+fun buildLegoBox(legoSet: LegoSetNumber, boxNumber: Int, missingParts: Map<String, Int>) =
     LegoBox(legoSet, boxNumber, LegoParts(missingParts))
 
-fun IncompleteReturn(legoSet: LegoSetNumber, missingParts: Map<String, Int>) =
+fun buildIncompleteReturn(legoSet: LegoSetNumber, missingParts: Map<String, Int>) =
     IncompleteReturn(legoSet, LegoParts(missingParts))

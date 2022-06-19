@@ -4,7 +4,7 @@ import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper
 import eu.luminis.workshop.smallsteps.logic.domainService.auth.AccessDeniedException
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.TestUsers
-import eu.luminis.workshop.smallsteps.logic.domainService.state.LegoBox
+import eu.luminis.workshop.smallsteps.logic.domainService.state.buildLegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -51,7 +51,7 @@ internal class `LegoStock - ReturningTest` {
         // and
         assertFailsWith<IllegalStateException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, missingParts))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, missingParts))
         }
     }
 
@@ -74,7 +74,7 @@ internal class `LegoStock - ReturningTest` {
         // and
         assertFailsWith<IllegalStateException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, missingParts))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, missingParts))
         }
     }
 
@@ -97,7 +97,7 @@ internal class `LegoStock - ReturningTest` {
         // and
         assertFailsWith<AccessDeniedException> {
             // when
-            handler.returningInComplete(LegoBox(millenniumFalcon, 42, missingParts))
+            handler.returningInComplete(buildLegoBox(millenniumFalcon, 42, missingParts))
         }
     }
 }
