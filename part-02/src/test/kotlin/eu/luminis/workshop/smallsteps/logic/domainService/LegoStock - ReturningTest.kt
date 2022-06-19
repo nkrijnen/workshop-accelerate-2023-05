@@ -4,7 +4,7 @@ import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper
 import eu.luminis.workshop.smallsteps.logic.domainService.auth.AccessDeniedException
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.LegoStockHelper
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.TestUsers
-import eu.luminis.workshop.smallsteps.logic.domainService.state.buildLegoBox
+import eu.luminis.workshop.smallsteps.logic.domainService.helper.buildLegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import kotlin.test.Test
 import kotlin.test.assertEquals

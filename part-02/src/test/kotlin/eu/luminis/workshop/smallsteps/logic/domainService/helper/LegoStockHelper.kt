@@ -1,8 +1,11 @@
 package eu.luminis.workshop.smallsteps.logic.domainService.helper
 
+import eu.luminis.workshop.smallsteps.logic.domainModel.LegoParts
 import eu.luminis.workshop.smallsteps.logic.domainModel.valueObjects.LegoSetNumber
 import eu.luminis.workshop.smallsteps.logic.domainService.LegoStock
 import eu.luminis.workshop.smallsteps.logic.domainService.auth.AuthProvider
+import eu.luminis.workshop.smallsteps.logic.domainService.state.IncompleteReturn
+import eu.luminis.workshop.smallsteps.logic.domainService.state.LegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import eu.luminis.workshop.smallsteps.persistence.InMemoryLegoPartCatalog
 import eu.luminis.workshop.smallsteps.persistence.LegoPartLookup
@@ -20,3 +23,9 @@ internal object LegoStockHelper {
 
     val millenniumFalcon = LegoSetNumber(75192)
 }
+
+fun buildLegoBox(legoSet: LegoSetNumber, boxNumber: Int, missingParts: Map<String, Int>) =
+    LegoBox(legoSet, boxNumber, LegoParts(missingParts))
+
+fun buildIncompleteReturn(legoSet: LegoSetNumber, missingParts: Map<String, Int>) =
+    IncompleteReturn(legoSet, LegoParts(missingParts))

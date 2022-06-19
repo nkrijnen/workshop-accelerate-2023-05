@@ -4,8 +4,8 @@ import eu.luminis.workshop.smallsteps.api.helper.TestLegoStockRepository
 import eu.luminis.workshop.smallsteps.api.helper.setupLegoTestApp
 import eu.luminis.workshop.smallsteps.logic.domainModel.valueObjects.LegoSetNumber
 import eu.luminis.workshop.smallsteps.logic.domainService.helper.TestUsers
-import eu.luminis.workshop.smallsteps.logic.domainService.state.buildIncompleteReturn
-import eu.luminis.workshop.smallsteps.logic.domainService.state.buildLegoBox
+import eu.luminis.workshop.smallsteps.logic.domainService.helper.buildIncompleteReturn
+import eu.luminis.workshop.smallsteps.logic.domainService.helper.buildLegoBox
 import eu.luminis.workshop.smallsteps.logic.domainService.state.StockState
 import io.ktor.client.call.*
 import io.ktor.client.request.*
