@@ -31,44 +31,54 @@ which you can find under the `Code` button on the GitHub page.
 After opening the project, IntelliJ will need some time to sync the gradle project, download dependencies and compile
 the code. At this point, you may run into some of the issues mentioned below.
 
-Once the gradle build is complete, let's make sure you can run the tests.
+We have choosen to use [Quarkus](https://quarkus.io), as it has a lot of advantages in this type of applications. Automatically running unite test, immediate feedback, build on safe, etc. 
 
-Run all the tests. Press `Ctrl + Alt + R` (Mac) or `Alt + Shift + F10` (Win),
-then select `Tests in 'part-01'` and press enter.
+We recommend validate your project by running it in dev mode in a separate command line window. Re-run the tests. If one of them fail, fix it. Quarkus will run the test for you.
 
-If all is well, the test should fail with `expected: <Hello kotlin> but was: <Hello world>`
+#### Running the application in dev mode
 
-Now open `Hello.kt` and fix the code. Run the tests again to make sure they pass.
+You can run your application in dev mode that enables live coding using:
+```shell script
+./mvnw compile quarkus:dev
+```
 
-### Common issues
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-Common issues that you may run into:
+#### Packaging and running the application
 
-- Missing `JDK 17`. To resolve this, go to `Project Structure` using `Cmd + ;` (Mac). Go to `SDKs`, click on the `+` and
-  download a Java 17 SDK, for example `Eclipse Temurin`.
-- Missing `JUnit 5`. Sometimes IntelliJ complains about this. Click the IntelliJ hint to add JUnit 5.
+The application can be packaged using:
+```shell script
+./mvnw package
+```
+It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-## Tip: Test often
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
-Once you have validated that the tests are running, get into the habit of running the tests regularly by
-pressing `Ctrl + R`. That will re-run the last run configuration you used.
+If you want to build an _über-jar_, execute the following command:
+```shell script
+./mvnw package -Dquarkus.package.type=uber-jar
+```
 
-During the workshop, run the test often, pretty much after any small change you make. That way you get quick feedback
-when you break the code unintentionally, and you don't lose time continuing on broken code.
+The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-Also, don't run individual tests. Always run the complete suite - it's fast enough and that way you don't miss out on
-any potential feedback.
+#### Creating a native executable
 
-## Get familiar with Kotlin
+You can create a native executable using: 
+```shell script
+./mvnw package -Pnative
+```
 
-The techniques covered during the workshop are not tied to any specific programming language. You will likely be able to
-apply them in any typed programming language like Java, C#, C++ or TypeScript.
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+```shell script
+./mvnw package -Pnative -Dquarkus.native.container-build=true
+```
 
-The small codebase you will be given for this workshop is written in Kotlin. If you have some experience with Java, C#
-or TypeScript it should be easy to pick up Kotlin. If you have not worked with Kotlin before, don't worry! We'll do a
-mini-kotlin-crash-course at the start of the workshop. As preparation, you can get familiar with the Kotlin basics by
-going through a few of the [Kotlin Koans online](https://play.kotlinlang.org/koans/).
+You can then execute your native executable with: `./target/part-01-1.0.0-SNAPSHOT-runner`
 
-Tip: the Koans run tests to validate your solution, in some cases it can be insightful to take a peek at
-the [sourcecode for those tests](https://github.com/Kotlin/kotlin-koans/tree/master/test) to understand what is going
-on.
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+#### Related Guides
+
+- Quarkus Extension for Spring Web API ([guide](https://quarkus.io/guides/spring-web)): Use Spring Web annotations to create your REST services
+
