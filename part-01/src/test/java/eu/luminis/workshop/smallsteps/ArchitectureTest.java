@@ -7,18 +7,30 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
+import static com.tngtech.archunit.library.Architectures.onionArchitecture;
 
 @AnalyzeClasses(packages = "eu.luminis.workshop.smallsteps")
 public class ArchitectureTest {
 
+//    @ArchTest
+//    static final ArchRule layer_dependencies_are_respected = layeredArchitecture()
+//            .layer("api").definedBy("eu.luminis.workshop.smallsteps.api..")
+//            .layer("logic").definedBy("eu.luminis.workshop.smallsteps.logic..")
+//            .layer("persistence").definedBy("eu.luminis.workshop.smallsteps.persistence..")
+//            .whereLayer("api").mayNotBeAccessedByAnyLayer()
+//            .whereLayer("logic").mayOnlyBeAccessedByLayers("api")
+//            .whereLayer("persistence").mayOnlyBeAccessedByLayers("logic")
+//            .ignoreDependency(
+//                    resideInAPackage("eu.luminis.workshop.smallsteps"),
+//                    alwaysTrue()
+//            );
+
     @ArchTest
-    static final ArchRule layer_dependencies_are_respected = layeredArchitecture()
-            .layer("api").definedBy("eu.luminis.workshop.smallsteps.api..")
-            .layer("logic").definedBy("eu.luminis.workshop.smallsteps.logic..")
-            .layer("persistence").definedBy("eu.luminis.workshop.smallsteps.persistence..")
-            .whereLayer("api").mayNotBeAccessedByAnyLayer()
-            .whereLayer("logic").mayOnlyBeAccessedByLayers("api")
-            .whereLayer("persistence").mayOnlyBeAccessedByLayers("logic")
+    static final ArchRule onion_architecture_is_respected = onionArchitecture()
+            .domainModels("..logic..")
+            .withOptionalLayers(true)
+            .adapter("api", "..api..")
+            .adapter("persistence", "..persistence..")
             .ignoreDependency(
                     resideInAPackage("eu.luminis.workshop.smallsteps"),
                     alwaysTrue()
