@@ -15,7 +15,7 @@ public class UserController {
 
     @PostMapping(value = "/user", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody NewUserRequest request) {
-        userService.registerNewUser(request);
+        userService.registerNewUser(request.toCommand());
         return new ResponseEntity<>("User registered correctly", HttpStatus.CREATED);
     }
 }

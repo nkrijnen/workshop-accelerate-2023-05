@@ -1,6 +1,5 @@
 package eu.luminis.workshop.smallsteps.persistence;
 
-import eu.luminis.workshop.smallsteps.api.NewUserRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -15,8 +14,8 @@ public class UserPersistence {
         users = new HashSet<>();
     }
 
-    public UUID insertUser(NewUserRequest request) {
-        User newUser = new User(UUID.randomUUID(), request.getEmail(), request.getPassword());
+    public UUID insertUser(String email, String password) {
+        User newUser = new User(UUID.randomUUID(), email, password);
         users.add(newUser);
         return newUser.getId();
     }
