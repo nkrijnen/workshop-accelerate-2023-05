@@ -15,6 +15,7 @@ public class GreetingController {
 
     @GetMapping
     public String hello(@RequestParam String name) {
-        return String.format("hello %s", name);
+        return "Hello!";
+//        return String.format("Hello %s!", name);
     }
 }
