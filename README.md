@@ -22,6 +22,14 @@ The easiest way to manage your IntelliJ installation is using the [Toolbox App](
 You can do this directly from IntelliJ using `File`, `New`, `Project from Version Control...`, and entering the url
 which you can find under the `Code` button on the GitHub page.
 
+### Take the blue or the red pill
+
+Choose `kotlin` or `java`.
+
+For the Kotlin version: `git checkout main`
+
+For the Java version: `git checkout java/main`
+
 ### Validate your setup
 
 After opening the project, IntelliJ will need some time to sync the gradle project, download dependencies and compile
