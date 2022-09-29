@@ -1,5 +1,6 @@
 package eu.luminis.workshop.smallsteps.logic.domainservice;
 
+import eu.luminis.workshop.smallsteps.logic.domainmodel.LegoParts;
 import eu.luminis.workshop.smallsteps.logic.domainservice.auth.AccessDeniedException;
 import eu.luminis.workshop.smallsteps.logic.domainservice.helper.SetupLegoTestApp;
 import eu.luminis.workshop.smallsteps.logic.domainservice.state.LegoBox;
@@ -57,7 +58,7 @@ public class LegoStockReturningTest {
                         app.harry.toString() + " does not have it.");
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, app.missingParts));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(app.missingParts)));
         }).isInstanceOf(IllegalStateException.class)
                 .hasMessage("Cannot return " + app.millenniumFalcon.getNumber() + " as builder " +
                         app.harry.toString() + " does not have it.");
@@ -82,7 +83,7 @@ public class LegoStockReturningTest {
                         app.harry.toString() + " does not have it.");
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, app.missingParts));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(app.missingParts)));
         }).isInstanceOf(IllegalStateException.class)
                 .hasMessage("Cannot return " + app.millenniumFalcon.getNumber() + " as builder " +
                         app.harry.toString() + " does not have it.");
@@ -104,7 +105,7 @@ public class LegoStockReturningTest {
         }).isInstanceOf(AccessDeniedException.class);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, app.missingParts));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(app.missingParts)));
         }).isInstanceOf(AccessDeniedException.class);
     }
 }

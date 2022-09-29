@@ -1,6 +1,7 @@
 package eu.luminis.workshop.smallsteps.logic.appservice;
 
 import eu.luminis.workshop.smallsteps.helpers.TestLegoStockRepository;
+import eu.luminis.workshop.smallsteps.logic.domainmodel.LegoParts;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoSetNumber;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoStoreId;
 import eu.luminis.workshop.smallsteps.logic.domainservice.state.IncompleteReturn;
@@ -28,10 +29,10 @@ public class LegoStockQueriesTest {
                 null,
                 null,
                 List.of(
-                        new LegoBox(millenniumFalcon, 42, Map.of("3022", 7, "20105", 1)),
-                        new LegoBox(millenniumFalcon, 37, Map.of("3022", 3, "60581", 1)),
-                        new LegoBox(atAt, 5, Map.of("3022", 2, "18674", 1)),
-                        new LegoBox(r2d2, 8, Map.of("3666", 2, "64799", 1))
+                        new LegoBox(millenniumFalcon, 42, new LegoParts(Map.of("3022", 7, "20105", 1))),
+                        new LegoBox(millenniumFalcon, 37, new LegoParts(Map.of("3022", 3, "60581", 1))),
+                        new LegoBox(atAt, 5, new LegoParts(Map.of("3022", 2, "18674", 1))),
+                        new LegoBox(r2d2, 8, new LegoParts(Map.of("3666", 2, "64799", 1)))
                 ),
                 null)
         );

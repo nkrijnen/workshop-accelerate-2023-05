@@ -1,5 +1,6 @@
 package eu.luminis.workshop.smallsteps.logic.appservice;
 
+import eu.luminis.workshop.smallsteps.logic.domainmodel.LegoParts;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoStoreId;
 import eu.luminis.workshop.smallsteps.logic.domainservice.state.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,12 @@ public class LegoStockQueries {
     public Map<String, Integer> currentlyMissingPartsReport(LegoStoreId legoStoreId) {
         StockState foundState = repository.find(legoStoreId);
 
-        List<Map<String, Integer>> collect = foundState.getIncompleteStock().stream()
-                .map(LegoBox::getMissingParts)
-                .collect(Collectors.toList());
+        LegoParts summed = new LegoParts(Map.of());
+        for(LegoBox legoBox:foundState.getIncompleteStock()) {
+            summed = summed.plus(legoBox.getMissingParts());
+        }
 
-        Map<String, Integer> merged = mergeAndSum(collect);
-
-        return toSortedMap(merged);
+        return toSortedMap(summed.listParts());
     }
 
     public Map<String, Integer> historicallyMostLostParts(LegoStoreId legoStoreId) {

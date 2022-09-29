@@ -1,5 +1,6 @@
 package eu.luminis.workshop.smallsteps.logic.domainservice;
 
+import eu.luminis.workshop.smallsteps.logic.domainmodel.LegoParts;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoSetNumber;
 import eu.luminis.workshop.smallsteps.logic.domainservice.helper.SetupLegoTestApp;
 import eu.luminis.workshop.smallsteps.logic.domainservice.state.IncompleteReturn;
@@ -52,9 +53,9 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         StockState newState = handler.returnInComplete(
-                new LegoBox(app.millenniumFalcon, 42, missingPartsForMilleniumFalcon));
+                new LegoBox(app.millenniumFalcon, 42, new LegoParts(missingPartsForMilleniumFalcon)));
 
-        assertThat(List.of(new LegoBox(app.millenniumFalcon, 42, missingPartsForMilleniumFalcon)))
+        assertThat(List.of(new LegoBox(app.millenniumFalcon, 42, new LegoParts(missingPartsForMilleniumFalcon))))
                 .isEqualTo(newState.getIncompleteStock());
         assertThat(List.of(new IncompleteReturn(app.millenniumFalcon, missingPartsForMilleniumFalcon)))
                 .isEqualTo(newState.getIncompleteReturnHistory());
@@ -76,7 +77,7 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, Collections.emptyMap()));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(Map.of())));
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -92,7 +93,7 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, nonMilleniumFalconParts));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(nonMilleniumFalconParts)));
         }).isInstanceOf(IllegalArgumentException.class);
 
     }
@@ -109,11 +110,11 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, Map.of("20105",5)));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(Map.of("20105",5))));
         }).isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, Map.of("20105",0)));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(Map.of("20105",0))));
         }).isInstanceOf(IllegalArgumentException.class);
 
     }

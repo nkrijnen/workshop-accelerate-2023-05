@@ -1,5 +1,6 @@
 package eu.luminis.workshop.smallsteps.logic.domainservice;
 
+import eu.luminis.workshop.smallsteps.logic.domainmodel.LegoParts;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoBuilderId;
 import eu.luminis.workshop.smallsteps.logic.domainmodel.valueobjects.LegoSetNumber;
 import eu.luminis.workshop.smallsteps.logic.domainservice.auth.AuthProvider;
@@ -86,7 +87,7 @@ public class LegoStock {
         return new ArrayList<>() {
             {
                 addAll(stockState.getIncompleteReturnHistory());
-                add(new IncompleteReturn(legoBox.getLegoSetNumber(), legoBox.getMissingParts()));
+                add(new IncompleteReturn(legoBox.getLegoSetNumber(), legoBox.getMissingParts().listParts()));
             }
         };
     }
@@ -137,24 +138,19 @@ public class LegoStock {
     }
 
     private void requireValidMissingLegoParts(LegoBox legoBox) {
-        require(!legoBox.getMissingParts().isEmpty(), "No missing parts specified");
-        legoBox.getMissingParts().forEach((partNumber, numberOfParts) -> {
-            require(numberOfParts > 0, "You must specify how many parts are missing");
-        });
+        require(legoBox.getMissingParts().hasParts(), "No missing parts specified");
+        require(legoBox.getMissingParts().nonePartsWithZero(), "You must specify how many parts are missing");
 
-        Map<String, Integer> expectedParts = legoPartCatalog.allPartsForLegoSet(legoBox.getLegoSetNumber());
-        require(!expectedParts.isEmpty(),
+        Map<String, Integer> fromCatalog = legoPartCatalog.allPartsForLegoSet(legoBox.getLegoSetNumber());
+        require(!fromCatalog.isEmpty(),
                 String.format("Unable to determine parts for lego set %s", legoBox.getLegoSetNumber()));
 
-        legoBox.getMissingParts().forEach((partNumber, numberOfParts) -> {
-            require(expectedParts.containsKey(partNumber),
-                    String.format("Some parts reported missing don't belong to lego set %s",
-                            legoBox.getLegoSetNumber()));
-
-            require(expectedParts.getOrDefault(partNumber, 0) >= numberOfParts,
-                    String.format("Too many parts reported missing, the original lego set %s did not contain that " +
-                            "many of this part %s", legoBox.getLegoSetNumber().getNumber(), partNumber));
-        });
+        LegoParts legoPartsFromCatalog = new LegoParts(fromCatalog);
+        require(legoBox.getMissingParts().allPartsPresentIn(legoPartsFromCatalog),
+                String.format("Some parts reported missing don't belong to lego set %s", legoBox.getLegoSetNumber()));
+        require(legoPartsFromCatalog.allPartsInRequestedNumberAvailable(legoBox.getMissingParts()),
+                String.format("Too many parts reported missing, the original lego set %s did not contain that " +
+                        "many of a part", legoBox.getLegoSetNumber().getNumber()));
     }
 
     private static void require(boolean check, String message) {
