@@ -87,7 +87,7 @@ public class LegoStock {
         return new ArrayList<>() {
             {
                 addAll(stockState.getIncompleteReturnHistory());
-                add(new IncompleteReturn(legoBox.getLegoSetNumber(), legoBox.getMissingParts().listParts()));
+                add(new IncompleteReturn(legoBox.getLegoSetNumber(), legoBox.getMissingParts()));
             }
         };
     }

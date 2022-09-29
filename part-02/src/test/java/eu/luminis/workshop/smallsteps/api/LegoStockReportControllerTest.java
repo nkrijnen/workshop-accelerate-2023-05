@@ -45,10 +45,10 @@ public class LegoStockReportControllerTest {
                         new LegoBox(r2d2, 8, new LegoParts(Map.of("3666", 2, "64799", 1)))
                 ),
                 List.of(
-                        new IncompleteReturn(millenniumFalcon, Map.of("3022", 5, "20105", 1)),
-                        new IncompleteReturn(millenniumFalcon, Map.of("3022", 3, "60581", 1)),
-                        new IncompleteReturn(atAt, Map.of("3022", 2, "18674", 1)),
-                        new IncompleteReturn(r2d2, Map.of("3666", 2, "64799", 1))
+                        new IncompleteReturn(millenniumFalcon, new LegoParts(Map.of("3022", 5, "20105", 1))),
+                        new IncompleteReturn(millenniumFalcon, new LegoParts(Map.of("3022", 3, "60581", 1))),
+                        new IncompleteReturn(atAt, new LegoParts(Map.of("3022", 2, "18674", 1))),
+                        new IncompleteReturn(r2d2, new LegoParts(Map.of("3666", 2, "64799", 1)))
                 ))
         );
     }

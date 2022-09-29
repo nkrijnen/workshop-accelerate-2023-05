@@ -21,8 +21,8 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class LegoStockReturningInCompleteTest {
     SetupLegoTestApp app;
     Map<LegoSetNumber, LegoParts> partsForLegoSets;
-    Map<String, Integer> missingPartsForMilleniumFalcon;
-    Map<String, Integer> nonMilleniumFalconParts;
+    LegoParts missingPartsForMilleniumFalcon;
+    LegoParts nonMilleniumFalconParts;
 
 
     @BeforeEach
@@ -37,8 +37,8 @@ public class LegoStockReturningInCompleteTest {
                         "20105", 1
                 ))
         );
-        missingPartsForMilleniumFalcon = Map.of("20105", 1, "3022", 3);
-        nonMilleniumFalconParts = Map.of("00000", 1,"99999c",2);
+        missingPartsForMilleniumFalcon = new LegoParts(Map.of("20105", 1, "3022", 3));
+        nonMilleniumFalconParts = new LegoParts(Map.of("00000", 1,"99999c",2));
     }
 
     @Test
@@ -53,9 +53,9 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         StockState newState = handler.returnInComplete(
-                new LegoBox(app.millenniumFalcon, 42, new LegoParts(missingPartsForMilleniumFalcon)));
+                new LegoBox(app.millenniumFalcon, 42, missingPartsForMilleniumFalcon));
 
-        assertThat(List.of(new LegoBox(app.millenniumFalcon, 42, new LegoParts(missingPartsForMilleniumFalcon))))
+        assertThat(List.of(new LegoBox(app.millenniumFalcon, 42, missingPartsForMilleniumFalcon)))
                 .isEqualTo(newState.getIncompleteStock());
         assertThat(List.of(new IncompleteReturn(app.millenniumFalcon, missingPartsForMilleniumFalcon)))
                 .isEqualTo(newState.getIncompleteReturnHistory());
@@ -93,7 +93,7 @@ public class LegoStockReturningInCompleteTest {
         LegoStock handler = new LegoStock(app.harryAuth, new InMemoryLegoPartCatalog(partsForLegoSets), initialState);
 
         assertThatThrownBy(() -> {
-            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, new LegoParts(nonMilleniumFalconParts)));
+            handler.returnInComplete(new LegoBox(app.millenniumFalcon, 42, nonMilleniumFalconParts));
         }).isInstanceOf(IllegalArgumentException.class);
 
     }

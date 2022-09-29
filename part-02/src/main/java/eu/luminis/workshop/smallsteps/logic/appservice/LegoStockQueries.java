@@ -32,14 +32,16 @@ public class LegoStockQueries {
     public Map<String, Integer> historicallyMostLostParts(LegoStoreId legoStoreId) {
         StockState foundState = repository.find(legoStoreId);
 
-        List<Map<String, Integer>> collect = foundState.getIncompleteReturnHistory().stream()
+        List<LegoParts> collect = foundState.getIncompleteReturnHistory().stream()
                 .map(IncompleteReturn::getMissingParts)
                 .collect(Collectors.toList());
 
-        Map<String, Integer> merged = mergeAndSum(collect);
+        LegoParts summed = new LegoParts(Map.of());
+        for(LegoParts parts: collect) {
+            summed = summed.plus(parts);
+        }
 
-        return toSortedMap(merged);
-
+        return toSortedMap(summed.listParts());
     }
 
     private Map<String, Integer> mergeAndSum(List<Map<String, Integer>> collect) {
