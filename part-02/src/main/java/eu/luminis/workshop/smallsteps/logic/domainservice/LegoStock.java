@@ -141,11 +141,10 @@ public class LegoStock {
         require(legoBox.getMissingParts().hasParts(), "No missing parts specified");
         require(legoBox.getMissingParts().nonePartsWithZero(), "You must specify how many parts are missing");
 
-        Map<String, Integer> fromCatalog = legoPartCatalog.allPartsForLegoSet(legoBox.getLegoSetNumber());
-        require(!fromCatalog.isEmpty(),
+        LegoParts legoPartsFromCatalog = legoPartCatalog.allPartsForLegoSet(legoBox.getLegoSetNumber());
+        require(legoPartsFromCatalog.hasParts(),
                 String.format("Unable to determine parts for lego set %s", legoBox.getLegoSetNumber()));
 
-        LegoParts legoPartsFromCatalog = new LegoParts(fromCatalog);
         require(legoBox.getMissingParts().allPartsPresentIn(legoPartsFromCatalog),
                 String.format("Some parts reported missing don't belong to lego set %s", legoBox.getLegoSetNumber()));
         require(legoPartsFromCatalog.allPartsInRequestedNumberAvailable(legoBox.getMissingParts()),
