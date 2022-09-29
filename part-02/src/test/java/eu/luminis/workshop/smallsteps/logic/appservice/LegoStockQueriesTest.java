@@ -39,9 +39,9 @@ public class LegoStockQueriesTest {
         LegoStockQueries queries = new LegoStockQueries(
                 repository);
 
-        Map<String, Integer> pairs = queries.currentlyMissingPartsReport(bussum);
+        LegoParts legoParts = queries.currentlyMissingPartsReport(bussum);
 
-        assertThat(pairs).containsExactlyEntriesOf(new LinkedHashMap<>() {{
+        assertThat(legoParts.listPartsSorted()).containsExactlyEntriesOf(new LinkedHashMap<>() {{
             put("3022", 12);
             put("3666", 2);
             put("18674", 1);
@@ -68,9 +68,9 @@ public class LegoStockQueriesTest {
         );
         LegoStockQueries queries = new LegoStockQueries(repository);
 
-        Map<String, Integer> historicallyMostLostParts = queries.historicallyMostLostParts(bussum);
+        LegoParts historicallyMostLostParts = queries.historicallyMostLostParts(bussum);
 
-        assertThat(historicallyMostLostParts)
+        assertThat(historicallyMostLostParts.listPartsSorted())
                 .containsExactlyEntriesOf(new LinkedHashMap<>() {{
                     put("3022", 12);
                     put("3666", 2);

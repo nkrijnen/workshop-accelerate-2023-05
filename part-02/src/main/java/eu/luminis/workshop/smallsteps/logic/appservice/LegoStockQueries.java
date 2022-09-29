@@ -18,7 +18,7 @@ public class LegoStockQueries {
         this.repository = repository;
     }
 
-    public Map<String, Integer> currentlyMissingPartsReport(LegoStoreId legoStoreId) {
+    public LegoParts currentlyMissingPartsReport(LegoStoreId legoStoreId) {
         StockState foundState = repository.find(legoStoreId);
 
         LegoParts summed = new LegoParts(Map.of());
@@ -26,10 +26,10 @@ public class LegoStockQueries {
             summed = summed.plus(legoBox.getMissingParts());
         }
 
-        return toSortedMap(summed.listParts());
+        return summed;
     }
 
-    public Map<String, Integer> historicallyMostLostParts(LegoStoreId legoStoreId) {
+    public LegoParts historicallyMostLostParts(LegoStoreId legoStoreId) {
         StockState foundState = repository.find(legoStoreId);
 
         List<LegoParts> collect = foundState.getIncompleteReturnHistory().stream()
@@ -41,28 +41,6 @@ public class LegoStockQueries {
             summed = summed.plus(parts);
         }
 
-        return toSortedMap(summed.listParts());
-    }
-
-    private Map<String, Integer> mergeAndSum(List<Map<String, Integer>> collect) {
-        Map<String, Integer> missingParts = new HashMap<>();
-        collect.forEach(item -> {
-            item.keySet().forEach(key -> {
-                missingParts.merge(key, item.get(key), Integer::sum);
-            });
-        });
-        return missingParts;
-    }
-
-    private Map<String, Integer> toSortedMap(Map<String, Integer> missingParts) {
-        return missingParts.entrySet().stream()
-                .sorted(Comparator.comparing(o -> Integer.valueOf(o.getKey())))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (v1, v2) -> {
-                            throw new RuntimeException(String.format("Duplicate key for values %s and %s", v1, v2));
-                        },
-                        LinkedHashMap::new));
+        return summed;
     }
 }

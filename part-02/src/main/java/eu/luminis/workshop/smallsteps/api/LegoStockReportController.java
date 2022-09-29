@@ -25,7 +25,7 @@ public class LegoStockReportController {
         AuthProvider authProvider = authoriseAndHandleStockMutation(legoAuthParam);
         authProvider.currentAuthentication().mustBeStore();
 
-        return legoStockQueries.currentlyMissingPartsReport(new LegoStoreId(legoStoreIdParam));
+        return legoStockQueries.currentlyMissingPartsReport(new LegoStoreId(legoStoreIdParam)).listPartsSorted();
     }
 
     @GetMapping(path = "/stock/report/historically-missing-parts")
@@ -36,6 +36,6 @@ public class LegoStockReportController {
         AuthProvider authProvider = authoriseAndHandleStockMutation(legoAuthParam);
         authProvider.currentAuthentication().mustBeStore();
 
-        return legoStockQueries.historicallyMostLostParts(new LegoStoreId(legoStoreIdParam));
+        return legoStockQueries.historicallyMostLostParts(new LegoStoreId(legoStoreIdParam)).listPartsSorted();
     }
 }
