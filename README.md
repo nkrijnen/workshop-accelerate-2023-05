@@ -2,6 +2,10 @@
 
 During the workshop, this repo will be updated with code that you will be working on.
 
+## Assignments
+
+Go to [part-01/README.md](part-01/README.md) for the first part.
+
 ## Workshop preparation
 
 **TLDR:** Install IntelliJ + clone repo + check that tests run.
