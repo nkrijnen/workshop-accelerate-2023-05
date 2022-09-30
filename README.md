@@ -22,13 +22,14 @@ The easiest way to manage your IntelliJ installation is using the [Toolbox App](
 You can do this directly from IntelliJ using `File`, `New`, `Project from Version Control...`, and entering the url
 which you can find under the `Code` button on the GitHub page.
 
-### Take the blue or the red pill
+### Take the blu
 
 Choose `kotlin` or `java`.
 
 For the Kotlin version: `git checkout main`
 
-For the Java version: `git checkout java/main`
+For the Java version: `git checkout java/main` and switch to
+the [Java README.md](https://github.com/nkrijnen/workshop-devoxx-2022/tree/java/main#validate-your-setup)
 
 ### Validate your setup
 
