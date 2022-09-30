@@ -32,30 +32,20 @@ For the Java version: `git checkout java/main`
 
 ### Validate your setup
 
-After opening the project, IntelliJ will need some time to sync the gradle project, download dependencies and compile
-the code. At this point, you may run into some of the issues mentioned below.
+After opening the project, IntelliJ will need some time to sync the maven project, download dependencies and compile
+the code.
 
-We have choosen to use [Quarkus](https://quarkus.io), as it has a lot of advantages for these type of applications like:
+This project uses [Quarkus](https://quarkus.io), as it has a lot of advantages for these type of applications like:
 automatically running unit tests, immediate feedback, auto-build on save, etc.
 
 We recommend you validate this project by running it in `dev mode` in a separate command line window with the command:
 
 ```cd part-01; ./mvnw compile quarkus:dev```
 
-Now re-run the tests by pressing `o` to enable test output and then `r` to start auto-running tests.
-One test should fail.
+Now start auto-running the tests by pressing `r`. One test should fail.
 
-Last step: adjust the code in `GreetingController` to fix it. Quarkus will auto-run the test for you and
-they should now pass.
-
-#### Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
-cd part-01
-./mvnw compile quarkus:dev
-```
+Last step: adjust the code in `GreetingController` to fix it.
+On save, Quarkus will auto-run the test. The tests should pass.
 
 > **_NOTE:_**  Quarkus ships with a Dev UI, which is available in dev mode at http://localhost:8080/q/dev/
 
