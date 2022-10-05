@@ -32,7 +32,7 @@ which you can find under the `Code` button on the GitHub page.
 Choose `kotlin` or `java`.
 
 For the Kotlin version: `git checkout main` and switch to
-the [Kotlin README.md](https://github.com/nkrijnen/workshop-devoxx-2022/tree/main#validate-your-setup)
+the [Kotlin README.md](https://github.com/nkrijnen/workshop-ddd-nl-2022-11/tree/main#validate-your-setup)
 
 For the Java version: `git checkout java/main`
 
