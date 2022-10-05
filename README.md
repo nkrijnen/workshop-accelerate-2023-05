@@ -9,6 +9,11 @@ During the workshop, this repo will be updated with code that you will be workin
 There are a few things you can do to make sure you have a running start and don't lose any time on basic setup during
 the workshop.
 
+### Getting help
+
+If you run into problems while preparing, don't hesitate to reach out. You can contact me
+on [linkedin](https://www.linkedin.com/in/nicokrijnen/) or [twitter](https://twitter.com/nicokrijnen).
+
 ### Install the latest IntelliJ IDEA
 
 The [free IntelliJ Community edition](https://www.jetbrains.com/idea/download/) is sufficient for this workshop.
@@ -22,7 +27,7 @@ The easiest way to manage your IntelliJ installation is using the [Toolbox App](
 You can do this directly from IntelliJ using `File`, `New`, `Project from Version Control...`, and entering the url
 which you can find under the `Code` button on the GitHub page.
 
-### Take the blu
+### Take the blue or the red pill
 
 Choose `kotlin` or `java`.
 
