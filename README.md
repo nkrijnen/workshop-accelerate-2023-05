@@ -4,7 +4,7 @@ During the workshop, this repo will be updated with code that you will be workin
 
 ## Assignments
 
-Go to [part-01/README.md](part-01/README.md) for the first part.
+Go to [part-02/README.md](part-02/README.md) for the second part.
 
 ## Workshop preparation
 
