@@ -1,6 +1,8 @@
 package eu.luminis.workshop.smallsteps.api
 
+import eu.luminis.workshop.smallsteps.logic.Email
 import eu.luminis.workshop.smallsteps.logic.NewUserCommand
+import eu.luminis.workshop.smallsteps.logic.Password
 import eu.luminis.workshop.smallsteps.logic.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -25,5 +27,5 @@ data class NewUserRequest(
     val email: String,
     val password: String,
 ) {
-    fun toCommand() = NewUserCommand(email, password)
+    fun toCommand() = NewUserCommand(Email(email), Password(password))
 }
